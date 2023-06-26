@@ -1,11 +1,11 @@
 #[derive(Debug)]
-pub struct Split {
-    remainder: &'static str,
+pub struct Split<'a> {
+    remainder: &'a str,
     delimiter: char,
 }
 
-impl Split {
-    pub fn new(input: &'static str, delimiter: char) -> Self {
+impl<'a> Split<'a> {
+    pub fn new(input: &'a str, delimiter: char) -> Self {
         Self {
             remainder: input,
             delimiter,
@@ -13,8 +13,8 @@ impl Split {
     }
 }
 
-impl Iterator for Split {
-    type Item = &'static str;
+impl<'a> Iterator for Split<'a> {
+    type Item = &'a str;
 
     fn next(&mut self) -> Option<Self::Item> {
         if let Some(next_delim) = self.remainder.find(self.delimiter) {
